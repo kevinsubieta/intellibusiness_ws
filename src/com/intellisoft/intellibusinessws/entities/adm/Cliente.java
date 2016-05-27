@@ -1,27 +1,24 @@
 package com.intellisoft.intellibusinessws.entities.adm;
 
+import java.util.List;
+
 import com.intellisoft.intellibusinessws.entities.Entity;
+import com.intellisoft.intellibusinessws.entities.annotations.Ignored;
 import com.intellisoft.intellibusinessws.entities.annotations.KeyField;
+import com.intellisoft.intellibusinessws.entities.mrk.Notificacion;
 
 public class Cliente extends Entity{
 	@KeyField
 	private int id;
 	private String gcm;
+	@Ignored
+	private List<Notificacion> lstNotifications;
 	
 	
 
 	public Cliente() {
 		super();
 	}
-
-
-
-	public Cliente(int id, String gcm) {
-		super();
-		this.id = id;
-		this.gcm = gcm;
-	}
-
 
 
 	public int getId() {
@@ -46,6 +43,20 @@ public class Cliente extends Entity{
 		this.gcm = gcm;
 	}
 
+
+
+	public List<Notificacion> getLstNotifications() {
+		return lstNotifications;
+	}
+
+
+
+	public void setLstNotifications(List<Notificacion> lstNotifications) {
+		this.lstNotifications = lstNotifications;
+	}
+
+
+	
 	
 	
 	

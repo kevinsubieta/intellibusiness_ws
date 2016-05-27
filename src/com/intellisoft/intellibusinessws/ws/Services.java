@@ -1,6 +1,7 @@
 package com.intellisoft.intellibusinessws.ws;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -15,12 +16,15 @@ import javax.ws.rs.core.Response;
 
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.intellisoft.intellibusinessws.App;
 import com.intellisoft.intellibusinessws.business.adm.BCliente;
 import com.intellisoft.intellibusinessws.business.adm.BUsuario;
+import com.intellisoft.intellibusinessws.business.mrk.BInbox;
 import com.intellisoft.intellibusinessws.entities.Action;
 import com.intellisoft.intellibusinessws.entities.adm.Cliente;
 import com.intellisoft.intellibusinessws.entities.adm.Usuario;
+import com.intellisoft.intellibusinessws.entities.mrk.Inbox;
 import com.intellisoft.intellibusinessws.util.Log;
 
 @Path("/Services")
@@ -33,23 +37,7 @@ public class Services {
 		Log.info("Services");
 		return Helper.response("Hola MODIFICADO, el servicio de " + App.name + " - " + App.version);
 	}
-	
-	
-//	@GET()
-//	@Path("/ListAll")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response lstAllGeneric() {
-//		BUsuario bPrueba = null;
-//		try {
-//			bPrueba = new BUsuario();
-//			List<Medico> notification = bPrueba.getPrueba();
-//			return Helper.response(notification);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		return Helper.noResponse();
-//	}
-	
+			
 	
 	
 	@POST()
@@ -142,6 +130,62 @@ public class Services {
 		}
 		return Helper.noResponse();
 	}
+	
+	@GET()
+	@Path("/Adm/Cliente/Notifications/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response askUserRegister(@PathParam("userId") int userId) {
+		Log.info("Loggin users");
+		BInbox bInbox = null;
+		try {
+			bInbox = new BInbox();
+			List<Inbox> notification = bInbox.getInbox(userId);
+			return Helper.response(notification);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.error(e.getMessage());
+		} finally {
+			if (bInbox != null) {
+				try {
+					bInbox.destroy();
+				} catch (SQLException e) {
+					Log.error(e.getMessage());
+				}
+			}
+		}
+		return Helper.noResponse();
+	}
+	
+	
+	
+	@POST()
+	@Path("/Adm/Cliente/DeleteNotifications")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	//@Consumes(MediaType.APPLICATION_FORM_URLENCODED + "; charset=UTF-8")
+	public Response deleteNotifications (@FormParam("lstInbox") String lstInbox) {
+		Log.info("Actualizacion de usuarios");
+		BInbox bInbox = null;
+		try {
+			bInbox = new BInbox();
+			List<Inbox> newLstInbox = new ArrayList<Inbox>();
+			newLstInbox = new Gson().fromJson(lstInbox, new TypeToken<ArrayList<Inbox>>(){}.getType());
+			List<Inbox> notification =	bInbox.deleteNotifications(newLstInbox);
+			return Helper.response(notification);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} finally {
+			if (bInbox != null) {
+				try {
+					bInbox.destroy();
+				} catch (java.sql.SQLException e) {
+					Log.error(e.getMessage());
+				}
+			}
+		}
+		return Helper.noResponse();	
+	}
+
 
 
 //	@GET()
