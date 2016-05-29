@@ -245,4 +245,35 @@ public class Services {
 	}
 	
 	
+	
+	@POST()
+	@Path("/Inv/Cliente/ListNews")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response listNewers (@FormParam("lstIndex") String lstIndex) {
+		Log.info("Actualizacion de usuarios");
+		BProductoEmpresa bProductoEmpresa = null;
+		try {
+			bProductoEmpresa = new BProductoEmpresa();
+			List<Integer> index = new ArrayList<Integer>();;
+			index = new Gson().fromJson(lstIndex,new TypeToken<ArrayList<Integer>>(){}.getType());	
+			List<ProductoEmpresa> notification = bProductoEmpresa.getListNews(index);
+			return Helper.response(notification);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} finally {
+			if (bProductoEmpresa != null) {
+				try {
+					bProductoEmpresa.destroy();
+				} catch (java.sql.SQLException e) {
+					Log.error(e.getMessage());
+				}
+			}
+		}
+		return Helper.noResponse();	
+	}
+	
+
+	
+	
 }

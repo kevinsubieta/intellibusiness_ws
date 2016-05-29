@@ -52,14 +52,15 @@ public class DCarritoProducto<T> extends Data<T> {
 				for(CarritoProducto carrito : lstCarrito ){
 					carrito.setProductoEmpresa((ProductoEmpresa) selectFirst(lstProductEmp, having(on(ProductoEmpresa.class).getId(), equalTo(carrito.getIdp()))));
 				}
-			}
-			
+			}	
 		}
 	}
 	
 	public List<ProductoEmpresa> getProductosEmpresas(List<Object> llaves, String[] relations){
 		DProductoEmpresa<ProductoEmpresa> data = new DProductoEmpresa<ProductoEmpresa>(ProductoEmpresa.class, connection);
-		return data.listarLlave(llaves, "id");
+		List<ProductoEmpresa> lstProductoEmpresas = data.listarLlave(llaves, "id");
+		data.loadRelations(lstProductoEmpresas, new String[]{ProductoEmpresa.Relaciones.ImagenProducto.name()});
+		return lstProductoEmpresas;
 	}
 	
 	public List<CarritoProducto> deleteNotifications(List<CarritoProducto> newLstShop){
