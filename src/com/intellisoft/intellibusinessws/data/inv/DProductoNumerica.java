@@ -48,7 +48,7 @@ public class DProductoNumerica <T> extends Data<T> {
 	}
 	
 	public List<Numerica> getNumerica(List<Object> llaves,String[] relations){
-		DNumerica<Numerica> data = new DNumerica<>(Numerica.class, connection);
+		DNumerica<Numerica> data = new DNumerica<Numerica>(Numerica.class, connection);
 		return data.listarLlave(llaves, "id");
 	}
 }

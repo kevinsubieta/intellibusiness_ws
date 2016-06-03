@@ -74,10 +74,16 @@ public class Constantes {
 	
 	public static class DataBaseInfo {
 		public static final int DATABASE_PORT = 1433;
-		public static final String INSTANCE_NAME = "KEVIN-PC1";
+		public static final String INSTANCE_NAME = "54.191.255.20";
 		public static final String DATABASE_NAME = "Intellibusiness";
 		public static final String DATABASE_USER = "sa";
-		public static final String DATABASE_PASSWORD = "admin";
+		public static final String DATABASE_PASSWORD = "Amazon123";
+		
+//		public static final int DATABASE_PORT = 1433;
+//		public static final String INSTANCE_NAME = "Kevin-PC1";
+//		public static final String DATABASE_NAME = "Intellibusiness";
+//		public static final String DATABASE_USER = "sa";
+//		public static final String DATABASE_PASSWORD = "admin";
 	}
 
 	

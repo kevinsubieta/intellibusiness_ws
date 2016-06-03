@@ -48,7 +48,7 @@ public class DValorEscalar<T> extends Data<T> {
 	}
 	
 	public List<Escalar> getEscalar(List<Object> llaves, String[] relations){
-		DEscalar<Escalar> data = new DEscalar<>(Escalar.class, connection);
+		DEscalar<Escalar> data = new DEscalar<Escalar>(Escalar.class, connection);
 		return data.listarLlave(llaves, "id");
 	}
 	

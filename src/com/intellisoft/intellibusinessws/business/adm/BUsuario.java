@@ -18,13 +18,13 @@ public class BUsuario extends Business {
 	}
 	
 	public int saveUsuario(Usuario usuario){
-		DUsuario<Usuario> dUsuario = new DUsuario<>(Usuario.class, connection);	
+		DUsuario<Usuario> dUsuario = new DUsuario<Usuario>(Usuario.class, connection);	
 		return dUsuario.registerUsuario(usuario);
 	}
 	
 	public Usuario validateUser(String userName, String password){
-		DUsuario<Usuario> dUsuario = new DUsuario<>(Usuario.class, connection);	
-		DCliente<Cliente> dCliente = new DCliente<>(Cliente.class, connection);
+		DUsuario<Usuario> dUsuario = new DUsuario<Usuario>(Usuario.class, connection);	
+		DCliente<Cliente> dCliente = new DCliente<Cliente>(Cliente.class, connection);
 		Usuario usuario = dUsuario.validateUser(userName, password);
 		if(usuario!=null){
 			usuario.setCliente(dCliente.getClient(usuario.getId()));

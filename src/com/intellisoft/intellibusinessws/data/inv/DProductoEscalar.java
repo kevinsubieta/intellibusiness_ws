@@ -49,7 +49,7 @@ public class DProductoEscalar<T> extends Data<T> {
 	}
 	
 	public List<ValorEscalar> getValoresEscalares (List<Object> llaves,String[] relations){
-		DValorEscalar<ValorEscalar> data = new DValorEscalar<>(ValorEscalar.class, connection);
+		DValorEscalar<ValorEscalar> data = new DValorEscalar<ValorEscalar>(ValorEscalar.class, connection);
 		List<ValorEscalar> lstValorEscalar = data.listarLlave(llaves, "id");
 		data.loadRelations(lstValorEscalar, new String[]{ValorEscalar.Relaciones.Escalar.name()});
 		return lstValorEscalar;

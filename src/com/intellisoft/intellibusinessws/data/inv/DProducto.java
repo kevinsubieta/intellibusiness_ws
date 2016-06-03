@@ -63,14 +63,14 @@ public class DProducto<T> extends Data<T> {
 	}
 	
 	public List<ProductoEscalar> getProductoEscalar(List<Object> llaves,String[] relations){
-		DProductoEscalar<ProductoEscalar> data = new DProductoEscalar<>(ProductoEscalar.class, connection);
+		DProductoEscalar<ProductoEscalar> data = new DProductoEscalar<ProductoEscalar>(ProductoEscalar.class, connection);
 		List<ProductoEscalar> lstProdEscalar = data.listarLlave(llaves, "producto");
 		data.loadRelations(lstProdEscalar, new String[]{ProductoEscalar.Relaciones.ValorEscalar.name()});
 		return lstProdEscalar;
 	}
 	
 	public List<ProductoNumerica> getProductoNumerica(List<Object> llaves,String[] relations){
-		DProductoNumerica<ProductoNumerica> data = new DProductoNumerica<>(ProductoNumerica.class, connection);
+		DProductoNumerica<ProductoNumerica> data = new DProductoNumerica<ProductoNumerica>(ProductoNumerica.class, connection);
 		List<ProductoNumerica> lstProdNum = data.listarLlave(llaves, "producto");
 		data.loadRelations(lstProdNum, relations);
 		return lstProdNum;

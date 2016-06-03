@@ -49,7 +49,7 @@ public class DProductoDescuento<T> extends Data<T> {
 	}
 	
 	public List<Descuento> getDescuentos(List<Object> llaves, String[] relations){
-		DDescuento<Descuento> data = new DDescuento<>(Descuento.class, connection);
+		DDescuento<Descuento> data = new DDescuento<Descuento>(Descuento.class, connection);
 		return data.listarLlave(llaves, "id");
 	}
 

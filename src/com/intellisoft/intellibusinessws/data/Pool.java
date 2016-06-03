@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import com.intellisoft.intellibusinessws.realstateapp.Constantes;
-import com.intellisoft.intellibusinessws.util.Configuration;
+
 
 public class Pool {
 	private static BasicDataSource dataSource = null;

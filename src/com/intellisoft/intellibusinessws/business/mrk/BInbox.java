@@ -15,12 +15,12 @@ public class BInbox extends Business {
 	}
 	
 	public List<Inbox> getInbox(int idc){
-		DInbox<Inbox> data = new DInbox<>(Inbox.class, connection);
+		DInbox<Inbox> data = new DInbox<Inbox>(Inbox.class, connection);
 		return data.getInbox(idc);
 	}
 	
 	public List<Inbox> deleteNotifications(List<Inbox> lstInboxForDel){
-		DInbox<Inbox> data = new DInbox<>(Inbox.class, connection);
+		DInbox<Inbox> data = new DInbox<Inbox>(Inbox.class, connection);
 		return data.deleteNotifications(lstInboxForDel);
 	}
 	

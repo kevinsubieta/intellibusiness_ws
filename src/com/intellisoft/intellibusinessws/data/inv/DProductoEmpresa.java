@@ -90,19 +90,19 @@ public class DProductoEmpresa<T> extends Data<T>{
 	}
 	
 	public List<ImagenProducto> getImagenProductos(List<Object> llaves,String[] relations){
-		DImagenProducto<ImagenProducto> data = new DImagenProducto<>(ImagenProducto.class, connection);
+		DImagenProducto<ImagenProducto> data = new DImagenProducto<ImagenProducto>(ImagenProducto.class, connection);
 		return data.listarLlave(llaves,"id");
 	}
 	
 	public List<ProductoDescuento> getProductosDesc(List<Object> llaves,String[] relations){
-		DProductoDescuento<ProductoDescuento> data = new DProductoDescuento<>(ProductoDescuento.class, connection);
+		DProductoDescuento<ProductoDescuento> data = new DProductoDescuento<ProductoDescuento>(ProductoDescuento.class, connection);
 		List<ProductoDescuento> lstProDesc = data.listarLlave(llaves,"producto");
 		data.loadRelations(lstProDesc,new String[]{ProductoDescuento.Relaciones.Descuento.name()});
 		return lstProDesc;
 	}
 	
 	public List<Producto> getProductos(List<Object> llaves,String[] relations){
-		DProducto<Producto> data = new DProducto<>(Producto.class, connection);
+		DProducto<Producto> data = new DProducto<Producto>(Producto.class, connection);
 		List<Producto> lstProductos = data.listarLlave(llaves, "id");
 		data.loadRelations(lstProductos, new String[]{Producto.Relaciones.ProductoEscalar.name(),
 														Producto.Relaciones.ProductoNumerica.name()});

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="IntelliBusinessWebS">
+    <wb-module deploy-name="ServicioWS">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="java-output-path" value="/IntelliBusinessWebS/build/classes"/>
-        <property name="context-root" value="IntelliBusinessWebS"/>
+        <property name="context-root" value="ServicioWS"/>
+        <property name="java-output-path" value="/ServicioWS/build/classes"/>
     </wb-module>
 </project-modules>
