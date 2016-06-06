@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.intellisoft.intellibusinessws.business.Business;
 import com.intellisoft.intellibusinessws.data.ven.DCarritoProducto;
+import com.intellisoft.intellibusinessws.entities.inv.ProductoEmpresa;
 import com.intellisoft.intellibusinessws.entities.ven.CarritoProducto;
 
 public class BCarritoProducto extends Business {
@@ -22,6 +23,11 @@ public class BCarritoProducto extends Business {
 	public List<CarritoProducto> deleteNotifications(List<CarritoProducto> newLstShop){
 		DCarritoProducto<CarritoProducto> dCarritoProducto = new DCarritoProducto<CarritoProducto>(CarritoProducto.class, connection);
 		return dCarritoProducto.deleteNotifications(newLstShop);
+	}
+	
+	public boolean addShopCart(int idc, int idp){
+		DCarritoProducto<CarritoProducto> dCarritoProducto = new DCarritoProducto<CarritoProducto>(CarritoProducto.class, connection);
+		return dCarritoProducto.saveProductShopCart(idc,idp);
 	}
 	
 

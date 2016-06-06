@@ -39,6 +39,21 @@ public class DProductoEmpresa<T> extends Data<T>{
 		
 	}
 	
+	public ProductoEmpresa getProductByID(int id){
+		String query = String.format("select * from %s where id=%s",this.tableName,id);
+		List<ProductoEmpresa> lstProductEmp = (List<ProductoEmpresa>)this.list(query);
+		loadRelations(lstProductEmp, new String[]{ProductoEmpresa.Relaciones.ImagenProducto.name(),
+												  ProductoEmpresa.Relaciones.ProductoDescuento.name(),
+												  ProductoEmpresa.Relaciones.Producto.name()});
+		return lstProductEmp.get(0);
+		
+	}
+	
+	public List<ProductoEmpresa> getProductSuggestions(String name){
+		String query = String.format("SELECT TOP(5)* FROM %s WHERE nombre LIKE %s",this.tableName,"'"+name+"%'");
+		return (List<ProductoEmpresa>) this.list(query);
+	}
+	
 	
 	public void loadRelations(List<ProductoEmpresa> lstProductoEmpresas, String[] relations){
 		List<ImagenProducto> lstImagenProductos = new ArrayList<ImagenProducto>();
@@ -91,7 +106,7 @@ public class DProductoEmpresa<T> extends Data<T>{
 	
 	public List<ImagenProducto> getImagenProductos(List<Object> llaves,String[] relations){
 		DImagenProducto<ImagenProducto> data = new DImagenProducto<ImagenProducto>(ImagenProducto.class, connection);
-		return data.listarLlave(llaves,"id");
+		return data.listarLlave(llaves,"producto");
 	}
 	
 	public List<ProductoDescuento> getProductosDesc(List<Object> llaves,String[] relations){

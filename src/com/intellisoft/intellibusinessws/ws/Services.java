@@ -1,5 +1,6 @@
 package com.intellisoft.intellibusinessws.ws;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,8 @@ import com.intellisoft.intellibusinessws.business.adm.BUsuario;
 import com.intellisoft.intellibusinessws.business.inv.BProductoEmpresa;
 import com.intellisoft.intellibusinessws.business.mrk.BInbox;
 import com.intellisoft.intellibusinessws.business.ven.BCarritoProducto;
+import com.intellisoft.intellibusinessws.business.ven.BDetalleVenta;
+import com.intellisoft.intellibusinessws.business.ven.BVenta;
 import com.intellisoft.intellibusinessws.entities.Action;
 import com.intellisoft.intellibusinessws.entities.adm.Cliente;
 import com.intellisoft.intellibusinessws.entities.adm.Usuario;
@@ -272,6 +275,129 @@ public class Services {
 		}
 		return Helper.noResponse();	
 	}
+	
+	
+	@GET()
+	@Path("/Ven/Cliente/SaveShopCart/{idc}/{idp}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response SaveShopCart(@PathParam("idc") int idc,
+								 @PathParam("idp") int idp) {
+		Log.info("Loggin users");
+		BCarritoProducto bCarritoProducto = null;
+		try {
+			bCarritoProducto = new BCarritoProducto();
+			boolean notification = bCarritoProducto.addShopCart(idc, idp);
+			return Helper.response(notification);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.error(e.getMessage());
+		} finally {
+			if (bCarritoProducto != null) {
+				try {
+					bCarritoProducto.destroy();
+				} catch (SQLException e) {
+					Log.error(e.getMessage());
+				}
+			}
+		}
+		return Helper.noResponse();
+	}
+	
+	
+	@GET()
+	@Path("/Ven/Cliente/SaveSale/{cliente}/{producto}/{monto}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response SaveSale(@PathParam("cliente") int cliente,
+							 @PathParam("producto") int producto,
+							 @PathParam("monto") BigDecimal monto) {
+		Log.info("Loggin users");
+		BVenta bVenta = null;
+		BDetalleVenta bDetalleVenta = null;
+		boolean notification = false;
+		try {
+			bVenta = new BVenta();
+			bDetalleVenta = new BDetalleVenta();
+			long venta = bVenta.saveSale(cliente, monto);
+			if(venta!=-1){
+				notification = bDetalleVenta.saveDetailSale(venta, producto);
+			}			
+			return Helper.response(notification);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.error(e.getMessage());
+		} finally {
+			if (bVenta != null) {
+				try {
+					bVenta.destroy();
+				} catch (SQLException e) {
+					Log.error(e.getMessage());
+				}
+			}
+			if (bDetalleVenta != null) {
+				try {
+					bDetalleVenta.destroy();
+				} catch (SQLException e) {
+					Log.error(e.getMessage());
+				}
+			}
+		}
+		return Helper.noResponse();
+	}
+	
+	
+	
+	@GET()
+	@Path("/Inv/Cliente/GetProduct/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response SaveShopCart(@PathParam("id") int id) {
+		Log.info("Loggin users");
+		BProductoEmpresa bProductoEmpresa = null;
+		try {
+			bProductoEmpresa = new BProductoEmpresa();
+			ProductoEmpresa notification = bProductoEmpresa.getListNews(id);
+			return Helper.response(notification);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.error(e.getMessage());
+		} finally {
+			if (bProductoEmpresa != null) {
+				try {
+					bProductoEmpresa.destroy();
+				} catch (SQLException e) {
+					Log.error(e.getMessage());
+				}
+			}
+		}
+		return Helper.noResponse();
+	}
+	
+	
+	@GET()
+	@Path("/Inv/Cliente/GetSuggestions/{name}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response SaveShopCart(@PathParam("name") String name) {
+		BProductoEmpresa bProductoEmpresa = null;
+		try {
+			bProductoEmpresa = new BProductoEmpresa();
+			List<ProductoEmpresa> notification = bProductoEmpresa.getListSuggestions(name);
+			return Helper.response(notification);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Log.error(e.getMessage());
+		} finally {
+			if (bProductoEmpresa != null) {
+				try {
+					bProductoEmpresa.destroy();
+				} catch (SQLException e) {
+					Log.error(e.getMessage());
+				}
+			}
+		}
+		return Helper.noResponse();
+	}
+	
+	
+	
 	
 
 	

@@ -19,6 +19,7 @@ public class App {
 	public static final String FORMATO_DE_FECHA="dd-MM-yyyy";
 	//CONSTANTE PARA EL FORMATO DE LA HORA
 	public static final String FORMATO_DE_HORA="HH:mm:ss";
+	public static String TIME_ZONE="GMT-4";
 				
 //	private static final Logger Log = Logger.getLogger(App.class);  ----
 	
@@ -50,13 +51,13 @@ public class App {
 //		return properties;
 //	}
 //	
-//	public static Long getCurrentTime(){
-//		return Calendar.getInstance(TimeZone.getTimeZone(App.TIME_ZONE)).getTimeInMillis();
-//	}
-//	
-//	public static Date getCurrentDate(){
-//		return Calendar.getInstance(TimeZone.getTimeZone(App.TIME_ZONE)).getTime();
-//	}
+	public static Long getCurrentTime(){
+		return Calendar.getInstance(TimeZone.getTimeZone(App.TIME_ZONE)).getTimeInMillis();
+	}
+	
+	public static Date getCurrentDate(){
+		return Calendar.getInstance(TimeZone.getTimeZone(App.TIME_ZONE)).getTime();
+	}
 //
 //	private static Properties properties = App.Configuracion();
 //

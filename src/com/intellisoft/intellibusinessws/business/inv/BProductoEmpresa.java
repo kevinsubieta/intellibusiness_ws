@@ -17,5 +17,15 @@ public class BProductoEmpresa extends Business{
 		DProductoEmpresa<ProductoEmpresa> data = new DProductoEmpresa<ProductoEmpresa>(ProductoEmpresa.class,connection);
 		return data.getProducts(lstIndex);
 	}
+	
+	public ProductoEmpresa getListNews(int id){
+		DProductoEmpresa<ProductoEmpresa> data = new DProductoEmpresa<ProductoEmpresa>(ProductoEmpresa.class,connection);
+		return data.getProductByID(id);
+	}
+	
+	public List<ProductoEmpresa> getListSuggestions(String name){
+		DProductoEmpresa<ProductoEmpresa> data = new DProductoEmpresa<ProductoEmpresa>(ProductoEmpresa.class,connection);
+		return data.getProductSuggestions(name);
+	}
 
 }

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.intellisoft.intellibusinessws.App;
 import com.intellisoft.intellibusinessws.business.ven.BCarritoProducto;
 import com.intellisoft.intellibusinessws.data.Data;
 import com.intellisoft.intellibusinessws.data.inv.DProductoEmpresa;
@@ -72,6 +73,13 @@ public class DCarritoProducto<T> extends Data<T> {
 				}
 		}
 		return newList;
+	}
+	
+	public boolean saveProductShopCart(int idc,int idp){
+		String query = String.format("INSERT INTO %s VALUES ('%s',%s, %s)",this.tableName,Integer.toString(idc),
+																						  Integer.toString(idp),
+																						  App.getCurrentTime());
+		return this.execute(query);
 	}
 
 }
