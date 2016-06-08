@@ -305,11 +305,13 @@ public class Services {
 	
 	
 	@GET()
-	@Path("/Ven/Cliente/SaveSale/{cliente}/{producto}/{monto}")
+	@Path("/Ven/Cliente/SaveSale/{cliente}/{producto}/{precio}/{costo}/{cantidad}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response SaveSale(@PathParam("cliente") int cliente,
 							 @PathParam("producto") int producto,
-							 @PathParam("monto") BigDecimal monto) {
+							 @PathParam("precio") BigDecimal precio,
+							 @PathParam("costo") BigDecimal costo,
+							 @PathParam("cantidad") int cantidad) {
 		Log.info("Loggin users");
 		BVenta bVenta = null;
 		BDetalleVenta bDetalleVenta = null;
@@ -317,9 +319,9 @@ public class Services {
 		try {
 			bVenta = new BVenta();
 			bDetalleVenta = new BDetalleVenta();
-			long venta = bVenta.saveSale(cliente, monto);
+			long venta = bVenta.saveSale(cliente, precio);
 			if(venta!=-1){
-				notification = bDetalleVenta.saveDetailSale(venta, producto);
+				notification = bDetalleVenta.saveDetailSale(venta, producto,cantidad,precio,costo);
 			}			
 			return Helper.response(notification);
 		} catch (Exception e) {

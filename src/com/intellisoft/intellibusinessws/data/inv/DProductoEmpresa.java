@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.intellisoft.intellibusinessws.data.Data;
+import com.intellisoft.intellibusinessws.data.adm.DEmpresa;
 import com.intellisoft.intellibusinessws.data.mrk.DProductoDescuento;
+import com.intellisoft.intellibusinessws.entities.adm.Empresa;
 import com.intellisoft.intellibusinessws.entities.inv.ImagenProducto;
 import com.intellisoft.intellibusinessws.entities.inv.Producto;
 import com.intellisoft.intellibusinessws.entities.inv.ProductoEmpresa;
@@ -34,7 +36,8 @@ public class DProductoEmpresa<T> extends Data<T>{
 		List<ProductoEmpresa> lstProductEmp = (List<ProductoEmpresa>)this.list(query);
 		loadRelations(lstProductEmp, new String[]{ProductoEmpresa.Relaciones.ImagenProducto.name(),
 												  ProductoEmpresa.Relaciones.ProductoDescuento.name(),
-												  ProductoEmpresa.Relaciones.Producto.name()});
+												  ProductoEmpresa.Relaciones.Producto.name(),
+												  ProductoEmpresa.Relaciones.Empresa.name()});
 		return lstProductEmp;
 		
 	}
@@ -44,7 +47,8 @@ public class DProductoEmpresa<T> extends Data<T>{
 		List<ProductoEmpresa> lstProductEmp = (List<ProductoEmpresa>)this.list(query);
 		loadRelations(lstProductEmp, new String[]{ProductoEmpresa.Relaciones.ImagenProducto.name(),
 												  ProductoEmpresa.Relaciones.ProductoDescuento.name(),
-												  ProductoEmpresa.Relaciones.Producto.name()});
+												  ProductoEmpresa.Relaciones.Producto.name(),
+												  ProductoEmpresa.Relaciones.Empresa.name()});
 		return lstProductEmp.get(0);
 		
 	}
@@ -59,6 +63,7 @@ public class DProductoEmpresa<T> extends Data<T>{
 		List<ImagenProducto> lstImagenProductos = new ArrayList<ImagenProducto>();
 		List<ProductoDescuento> lstProductoDesc = new ArrayList<ProductoDescuento>();
 		List<Producto> lstProducto = new ArrayList<Producto>();
+		List<Empresa> lstEmpresa = new ArrayList<Empresa>();
 		List<Object> llaves = new ArrayList<Object>();
 		int i = 0;
 		for (String clase : relations) {
@@ -77,6 +82,11 @@ public class DProductoEmpresa<T> extends Data<T>{
 				llaves.clear();
 				llaves = extract(lstProductoEmpresas, (Object) on(ProductoEmpresa.class).getProducto());
 				lstProducto = getProductos(llaves, relations);
+			}else if(clase.equals(ProductoEmpresa.Relaciones.Empresa.name())){
+				relations[i] = "";
+				llaves.clear();
+				llaves = extract(lstProductoEmpresas, (Object) on(ProductoEmpresa.class).getEmpresa());
+				lstEmpresa = getEmpresa(llaves, relations);
 			}
 			i++;
 			if(relations.length>0){
@@ -96,6 +106,12 @@ public class DProductoEmpresa<T> extends Data<T>{
 					if(lstProducto.size() > 0){
 						for(ProductoEmpresa productoEmpresa : lstProductoEmpresas ){
 							productoEmpresa.setInsProducto(((Producto)selectFirst(lstProducto, having(on(Producto.class).getId(), equalTo(productoEmpresa.getId())))));
+						}
+					}
+				}else if(clase.equals(ProductoEmpresa.Relaciones.Empresa.name())){
+					if(lstEmpresa.size() > 0){
+						for(ProductoEmpresa productoEmpresa : lstProductoEmpresas){
+							productoEmpresa.setInsEmpresa(((Empresa)selectFirst(lstEmpresa, having(on(Empresa.class).getId(), equalTo(productoEmpresa.getEmpresa())))));
 						}
 					}
 				}
@@ -122,6 +138,11 @@ public class DProductoEmpresa<T> extends Data<T>{
 		data.loadRelations(lstProductos, new String[]{Producto.Relaciones.ProductoEscalar.name(),
 														Producto.Relaciones.ProductoNumerica.name()});
 		return lstProductos;
+	}
+	
+	public List<Empresa> getEmpresa(List<Object> llaves,String[] relations){
+		DEmpresa<Empresa> data = new DEmpresa<Empresa>(Empresa.class, connection);
+		return data.listarLlave(llaves, "id");
 	}
 
 }

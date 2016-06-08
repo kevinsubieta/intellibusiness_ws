@@ -3,6 +3,7 @@ package com.intellisoft.intellibusinessws;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -20,6 +21,7 @@ public class App {
 	//CONSTANTE PARA EL FORMATO DE LA HORA
 	public static final String FORMATO_DE_HORA="HH:mm:ss";
 	public static String TIME_ZONE="GMT-4";
+	public static BigDecimal TIPO_CAMBIO=new BigDecimal(6.97);
 				
 //	private static final Logger Log = Logger.getLogger(App.class);  ----
 	

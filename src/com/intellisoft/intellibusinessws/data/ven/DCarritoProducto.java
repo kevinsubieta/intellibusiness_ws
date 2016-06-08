@@ -27,7 +27,7 @@ public class DCarritoProducto<T> extends Data<T> {
 	}
 	
 	public List<CarritoProducto> getShopCart(int id){
-		String query = String.format("select * from %s", this.tableName);
+		String query = String.format("select * from %s where idc=%s", this.tableName,id);
 		List<CarritoProducto> lstCarrito = (List<CarritoProducto>)this.list(query);
 		loadRelations(lstCarrito, new String[]{CarritoProducto.Relaciones.ProductoEmpresa.name()});
 		return lstCarrito;

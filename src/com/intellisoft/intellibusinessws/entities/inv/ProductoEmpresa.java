@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.intellisoft.intellibusinessws.entities.Entity;
+import com.intellisoft.intellibusinessws.entities.adm.Empresa;
 import com.intellisoft.intellibusinessws.entities.annotations.Ignored;
 import com.intellisoft.intellibusinessws.entities.annotations.KeyField;
 import com.intellisoft.intellibusinessws.entities.mrk.ProductoDescuento;
@@ -16,6 +17,8 @@ public class ProductoEmpresa extends Entity {
 	private String nombre;
 	private int cantidad;
 	private BigDecimal precio;
+	private BigDecimal costo;
+	private long fechalanzamiento;
 	private int estado;
 	private String detalle;
 	private boolean oferta;
@@ -26,6 +29,8 @@ public class ProductoEmpresa extends Entity {
 	private List<ProductoDescuento> lstProductoDes;
 	@Ignored
 	private Producto insProducto;
+	@Ignored
+	private Empresa insEmpresa;
 	
 	
 	public ProductoEmpresa() {
@@ -33,12 +38,13 @@ public class ProductoEmpresa extends Entity {
 	}
 
 	public enum Relaciones{
-		ImagenProducto, ProductoDescuento, Producto
+		ImagenProducto, ProductoDescuento, Producto,Empresa
 	}
 
 	public ProductoEmpresa(int id, int producto, int empresa, String nombre, int cantidad, BigDecimal precio,
-			int estado, String detalle, boolean oferta, List<ImagenProducto> lstImgProducto,
-			List<ProductoDescuento> lstProductoDes, Producto insProducto) {
+			BigDecimal costo, long fechalanzamiento, int estado, String detalle, boolean oferta,
+			List<ImagenProducto> lstImgProducto, List<ProductoDescuento> lstProductoDes, Producto insProducto,
+			Empresa insEmpresa) {
 		super();
 		this.id = id;
 		this.producto = producto;
@@ -46,12 +52,15 @@ public class ProductoEmpresa extends Entity {
 		this.nombre = nombre;
 		this.cantidad = cantidad;
 		this.precio = precio;
+		this.costo = costo;
+		this.fechalanzamiento = fechalanzamiento;
 		this.estado = estado;
 		this.detalle = detalle;
 		this.oferta = oferta;
 		this.lstImgProducto = lstImgProducto;
 		this.lstProductoDes = lstProductoDes;
 		this.insProducto = insProducto;
+		this.insEmpresa = insEmpresa;
 	}
 
 	public int getId() {
@@ -102,6 +111,22 @@ public class ProductoEmpresa extends Entity {
 		this.precio = precio;
 	}
 
+	public BigDecimal getCosto() {
+		return costo;
+	}
+
+	public void setCosto(BigDecimal costo) {
+		this.costo = costo;
+	}
+
+	public long getFechalanzamiento() {
+		return fechalanzamiento;
+	}
+
+	public void setFechalanzamiento(long fechalanzamiento) {
+		this.fechalanzamiento = fechalanzamiento;
+	}
+
 	public int getEstado() {
 		return estado;
 	}
@@ -148,6 +173,14 @@ public class ProductoEmpresa extends Entity {
 
 	public void setInsProducto(Producto insProducto) {
 		this.insProducto = insProducto;
+	}
+
+	public Empresa getInsEmpresa() {
+		return insEmpresa;
+	}
+
+	public void setInsEmpresa(Empresa insEmpresa) {
+		this.insEmpresa = insEmpresa;
 	}
 
 	
