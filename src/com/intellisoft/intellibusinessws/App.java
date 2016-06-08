@@ -60,6 +60,12 @@ public class App {
 	public static Date getCurrentDate(){
 		return Calendar.getInstance(TimeZone.getTimeZone(App.TIME_ZONE)).getTime();
 	}
+	
+	public static Long getCurrentTimeWithoutMilisec(){
+		return Calendar.getInstance(TimeZone.getTimeZone(App.TIME_ZONE)).getTimeInMillis()/1000;
+	}
+	
+
 //
 //	private static Properties properties = App.Configuracion();
 //

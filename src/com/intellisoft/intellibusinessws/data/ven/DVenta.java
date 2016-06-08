@@ -16,7 +16,7 @@ public class DVenta<T> extends Data<T> {
 	
 	public long saveSale(int cliente, BigDecimal monto){
 		String query = String.format("INSERT INTO %s VALUES(%s,%s,%s,0)", 
-				this.tableName,cliente,App.getCurrentTime(),monto);
+				this.tableName,cliente,App.getCurrentTimeWithoutMilisec(),monto);
 		if(this.execute(query)){
 			String query2 = String.format("SELECT * FROM ven_venta ORDER BY(nro) desc");
 			Venta venta =(Venta)this.list(query2).get(0);
