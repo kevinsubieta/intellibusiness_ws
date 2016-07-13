@@ -105,7 +105,7 @@ public class DProductoEmpresa<T> extends Data<T>{
 				}else if(clase.equals(ProductoEmpresa.Relaciones.Producto.name())){
 					if(lstProducto.size() > 0){
 						for(ProductoEmpresa productoEmpresa : lstProductoEmpresas ){
-							productoEmpresa.setInsProducto(((Producto)selectFirst(lstProducto, having(on(Producto.class).getId(), equalTo(productoEmpresa.getId())))));
+							productoEmpresa.setInsProducto(((Producto)selectFirst(lstProducto, having(on(Producto.class).getId(), equalTo(productoEmpresa.getProducto())))));
 						}
 					}
 				}else if(clase.equals(ProductoEmpresa.Relaciones.Empresa.name())){
@@ -122,7 +122,7 @@ public class DProductoEmpresa<T> extends Data<T>{
 	
 	public List<ImagenProducto> getImagenProductos(List<Object> llaves,String[] relations){
 		DImagenProducto<ImagenProducto> data = new DImagenProducto<ImagenProducto>(ImagenProducto.class, connection);
-		return data.listarLlave(llaves,"producto");
+		return data.listarLlave(llaves,"id");
 	}
 	
 	public List<ProductoDescuento> getProductosDesc(List<Object> llaves,String[] relations){

@@ -28,7 +28,7 @@ public class DProductoNumerica <T> extends Data<T> {
 		List<Object> llaves = new ArrayList<Object>();
 		int i = 0;
 		for (String clase : relations) {
-			if (clase.equals(ProductoNumerica.Relaciones.Numerica)) {
+			if (clase.equals(ProductoNumerica.Relaciones.Numerica.name())) {
 				relations[i] = "";
 				llaves.clear();
 				llaves = extract(lstProdNumerica, (Object) on(ProductoNumerica.class).getNumerica());
@@ -40,7 +40,7 @@ public class DProductoNumerica <T> extends Data<T> {
 		if(relations.length > 0){
 			if(lstNumerica.size()>0){
 				for(ProductoNumerica productoNumerica : lstProdNumerica ){
-					 productoNumerica.setNumerica((Numerica) selectFirst(lstNumerica,
+					 productoNumerica.setInsNumerica((Numerica) selectFirst(lstNumerica,
 							 having(on(Numerica.class).getId(), equalTo(productoNumerica.getNumerica()))));
 				}
 			}	

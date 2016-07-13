@@ -25,7 +25,7 @@ public class DInbox <T> extends Data<T> {
 	
 	public List<Inbox> getInbox(int idc){
 		DNotificacion<T> dNotification = new DNotificacion<T>(type, connection);
-		String query = String.format("select * from %s where idc = %s and eliminado=0" , this.tableName, idc);
+		String query = String.format("select * from %s where idc = %s" , this.tableName, idc);
 		List<Inbox> lstInbox = (List<Inbox>)this.list(query);
 		loadRelations(lstInbox, new String[]{Inbox.relaciones.Notificaciones.name()});
 		return lstInbox;

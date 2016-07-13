@@ -72,7 +72,7 @@ public class DProducto<T> extends Data<T> {
 	public List<ProductoNumerica> getProductoNumerica(List<Object> llaves,String[] relations){
 		DProductoNumerica<ProductoNumerica> data = new DProductoNumerica<ProductoNumerica>(ProductoNumerica.class, connection);
 		List<ProductoNumerica> lstProdNum = data.listarLlave(llaves, "producto");
-		data.loadRelations(lstProdNum, relations);
+		data.loadRelations(lstProdNum, new String[]{ProductoNumerica.Relaciones.Numerica.name()});
 		return lstProdNum;
 		
 		
