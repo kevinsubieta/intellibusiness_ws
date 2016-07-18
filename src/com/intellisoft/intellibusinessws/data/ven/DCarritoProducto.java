@@ -27,7 +27,7 @@ public class DCarritoProducto<T> extends Data<T> {
 	}
 	
 	public List<CarritoProducto> getShopCart(int id){
-		String query = String.format("select * from %s where idc=%s", this.tableName,id);
+		String query = String.format("select * from %s where cliente=%s", this.tableName,id);
 		List<CarritoProducto> lstCarrito = (List<CarritoProducto>)this.list(query);
 		loadRelations(lstCarrito, new String[]{CarritoProducto.Relaciones.ProductoEmpresa.name()});
 		return lstCarrito;
@@ -41,7 +41,7 @@ public class DCarritoProducto<T> extends Data<T> {
 			if (clase.equals(CarritoProducto.Relaciones.ProductoEmpresa.name())) {
 				relations[i] = "";
 				llaves.clear();
-				llaves = extract(lstCarrito, (Object) on(CarritoProducto.class).getIdp());
+				llaves = extract(lstCarrito, (Object) on(CarritoProducto.class).getProducto());
 			
 				lstProductEmp = getProductosEmpresas(llaves,relations);
 			}
@@ -51,7 +51,7 @@ public class DCarritoProducto<T> extends Data<T> {
 		if(relations.length > 0){
 			if(lstProductEmp.size()>0){
 				for(CarritoProducto carrito : lstCarrito ){
-					carrito.setProductoEmpresa((ProductoEmpresa) selectFirst(lstProductEmp, having(on(ProductoEmpresa.class).getId(), equalTo(carrito.getIdp()))));
+					carrito.setProductoEmpresa((ProductoEmpresa) selectFirst(lstProductEmp, having(on(ProductoEmpresa.class).getId(), equalTo(carrito.getProducto()))));
 				}
 			}	
 		}
@@ -60,14 +60,17 @@ public class DCarritoProducto<T> extends Data<T> {
 	public List<ProductoEmpresa> getProductosEmpresas(List<Object> llaves, String[] relations){
 		DProductoEmpresa<ProductoEmpresa> data = new DProductoEmpresa<ProductoEmpresa>(ProductoEmpresa.class, connection);
 		List<ProductoEmpresa> lstProductoEmpresas = data.listarLlave(llaves, "id");
-		data.loadRelations(lstProductoEmpresas, new String[]{ProductoEmpresa.Relaciones.ImagenProducto.name()});
+		data.loadRelations(lstProductoEmpresas, new String[]{ProductoEmpresa.Relaciones.ImagenProducto.name(),
+				   											 ProductoEmpresa.Relaciones.ProductoDescuento.name(),
+				   											 ProductoEmpresa.Relaciones.Producto.name(),
+				   											 ProductoEmpresa.Relaciones.Empresa.name()});
 		return lstProductoEmpresas;
 	}
 	
 	public List<CarritoProducto> deleteNotifications(List<CarritoProducto> newLstShop){
 		List<CarritoProducto> newList = new ArrayList<CarritoProducto>();
 		for (CarritoProducto carrito : newLstShop){
-			String query = String.format("delete %s where idc=%s and idp=%s",this.tableName, carrito.getIdc(), carrito.getIdp());
+			String query = String.format("delete %s where cliente=%s and producto=%s",this.tableName, carrito.getCliente(), carrito.getProducto());
 			if(this.execute(query)){
 				newList.add(carrito);
 				}
@@ -77,8 +80,7 @@ public class DCarritoProducto<T> extends Data<T> {
 	
 	public boolean saveProductShopCart(int idc,int idp){
 		String query = String.format("INSERT INTO %s VALUES ('%s',%s, %s)",this.tableName,Integer.toString(idc),
-																						  Integer.toString(idp),
-																						  App.getCurrentTime());
+																						  Integer.toString(idp),1);
 		return this.execute(query);
 	}
 

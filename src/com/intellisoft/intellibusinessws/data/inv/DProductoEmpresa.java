@@ -75,7 +75,7 @@ public class DProductoEmpresa<T> extends Data<T>{
 			} else if(clase.equals(ProductoEmpresa.Relaciones.ProductoDescuento.name())){
 				relations[i] = "";
 				llaves.clear();
-				llaves = extract(lstProductoEmpresas, (Object) on(ProductoEmpresa.class).getProducto());
+				llaves = extract(lstProductoEmpresas, (Object) on(ProductoEmpresa.class).getId());
 				lstProductoDesc = getProductosDesc(llaves,relations);
 			}else if(clase.equals(ProductoEmpresa.Relaciones.Producto.name())){
 				relations[i] = "";

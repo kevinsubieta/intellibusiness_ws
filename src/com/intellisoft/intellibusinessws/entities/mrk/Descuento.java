@@ -9,7 +9,7 @@ public class Descuento extends Entity {
 	private String descripcion;
 	private long inicio;
 	private long fin;
-	private byte porcentaje;
+	private int porcentaje;
 	private boolean baja;
 	
 	
@@ -18,7 +18,9 @@ public class Descuento extends Entity {
 		super();
 	}
 
-	public Descuento(int id, String descripcion, long inicio, long fin, byte porcentaje, boolean baja) {
+
+
+	public Descuento(int id, String descripcion, long inicio, long fin, int porcentaje, boolean baja) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -28,54 +30,78 @@ public class Descuento extends Entity {
 		this.baja = baja;
 	}
 
+
+
 	public int getId() {
 		return id;
 	}
+
+
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
+
+
 	public String getDescripcion() {
 		return descripcion;
 	}
+
+
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
+
+
 	public long getInicio() {
 		return inicio;
 	}
+
+
 
 	public void setInicio(long inicio) {
 		this.inicio = inicio;
 	}
 
+
+
 	public long getFin() {
 		return fin;
 	}
+
+
 
 	public void setFin(long fin) {
 		this.fin = fin;
 	}
 
-	public byte getPorcentaje() {
+
+
+	public int getPorcentaje() {
 		return porcentaje;
 	}
 
-	public void setPorcentaje(byte porcentaje) {
+
+
+	public void setPorcentaje(int porcentaje) {
 		this.porcentaje = porcentaje;
 	}
+
+
 
 	public boolean isBaja() {
 		return baja;
 	}
 
+
+
 	public void setBaja(boolean baja) {
 		this.baja = baja;
 	}
-	
+
 	
 	
 	

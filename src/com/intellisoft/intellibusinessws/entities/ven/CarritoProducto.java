@@ -7,10 +7,10 @@ import com.intellisoft.intellibusinessws.entities.inv.ProductoEmpresa;
 
 public class CarritoProducto extends Entity{
 	@KeyField
-	private int idc;
+	private int cliente;
 	@KeyField
-	private int idp;
-	private long fecha;
+	private int producto;
+	private int cantidad;
 	@Ignored
 	private ProductoEmpresa productoEmpresa;
 	
@@ -24,43 +24,45 @@ public class CarritoProducto extends Entity{
 		super();
 	}
 
+	
 
-	public CarritoProducto(int idc, int idp, long fecha, ProductoEmpresa productoEmpresa) {
+	public CarritoProducto(int cliente, int producto, int cantidad, ProductoEmpresa productoEmpresa) {
 		super();
-		this.idc = idc;
-		this.idp = idp;
-		this.fecha = fecha;
+		this.cliente = cliente;
+		this.producto = producto;
+		this.cantidad = cantidad;
 		this.productoEmpresa = productoEmpresa;
 	}
 
 
-	public int getIdc() {
-		return idc;
+
+	public int getCliente() {
+		return cliente;
 	}
 
 
-	public void setIdc(int idc) {
-		this.idc = idc;
+	public void setCliente(int cliente) {
+		this.cliente = cliente;
 	}
 
 
-	public int getIdp() {
-		return idp;
+	public int getProducto() {
+		return producto;
 	}
 
 
-	public void setIdp(int idp) {
-		this.idp = idp;
+	public void setProducto(int producto) {
+		this.producto = producto;
 	}
 
 
-	public long getFecha() {
-		return fecha;
+	public int getCantidad() {
+		return cantidad;
 	}
 
 
-	public void setFecha(long fecha) {
-		this.fecha = fecha;
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 
@@ -72,9 +74,8 @@ public class CarritoProducto extends Entity{
 	public void setProductoEmpresa(ProductoEmpresa productoEmpresa) {
 		this.productoEmpresa = productoEmpresa;
 	}
+
 	
-	
-	
-	
+		
 
 }
