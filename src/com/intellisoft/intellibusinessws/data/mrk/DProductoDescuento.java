@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.intellisoft.intellibusinessws.App;
 import com.intellisoft.intellibusinessws.data.Data;
 import com.intellisoft.intellibusinessws.entities.inv.ProductoEmpresa;
 import com.intellisoft.intellibusinessws.entities.mrk.Descuento;
@@ -35,6 +36,7 @@ public class DProductoDescuento<T> extends Data<T> {
 				llaves.clear();
 				llaves = extract(lstProdDesc, (Object) on(ProductoDescuento.class).getDescuento());
 				lstDesc = getDescuentos(llaves,relations);
+				lstDesc = filterDescuentos(lstDesc);
 			}
 		i++;
 		}
@@ -44,7 +46,7 @@ public class DProductoDescuento<T> extends Data<T> {
 				for(ProductoDescuento prodDesc : lstProdDesc ){
 					prodDesc.setInsDescuento(((Descuento) selectFirst(lstDesc, having(on(Descuento.class).getId(), equalTo(prodDesc.getDescuento())))));
 				}
-			}	
+			}
 		}
 	}
 	
@@ -52,5 +54,18 @@ public class DProductoDescuento<T> extends Data<T> {
 		DDescuento<Descuento> data = new DDescuento<Descuento>(Descuento.class, connection);
 		return data.listarLlave(llaves, "id");
 	}
+	
+	private List<Descuento> filterDescuentos(List<Descuento> lstDesc){
+		List<Descuento> lstDescFiltrados = new ArrayList<Descuento>();
+		Long fechaActual = App.getCurrentTimeWithoutMilisec();
+		for (Descuento descuento : lstDesc){
+			if(fechaActual >= descuento.getInicio() && fechaActual <= descuento.getFin() && !descuento.isBaja()){
+				lstDescFiltrados.add(descuento);
+			}
+		}
+		return lstDescFiltrados;
+	}
+	
+
 
 }

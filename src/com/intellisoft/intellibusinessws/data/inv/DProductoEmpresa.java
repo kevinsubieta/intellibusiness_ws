@@ -129,6 +129,7 @@ public class DProductoEmpresa<T> extends Data<T>{
 		DProductoDescuento<ProductoDescuento> data = new DProductoDescuento<ProductoDescuento>(ProductoDescuento.class, connection);
 		List<ProductoDescuento> lstProDesc = data.listarLlave(llaves,"producto");
 		data.loadRelations(lstProDesc,new String[]{ProductoDescuento.Relaciones.Descuento.name()});
+		lstProDesc = filterIntermediatesDes(lstProDesc);
 		return lstProDesc;
 	}
 	
@@ -143,6 +144,16 @@ public class DProductoEmpresa<T> extends Data<T>{
 	public List<Empresa> getEmpresa(List<Object> llaves,String[] relations){
 		DEmpresa<Empresa> data = new DEmpresa<Empresa>(Empresa.class, connection);
 		return data.listarLlave(llaves, "id");
+	}
+	
+	private List<ProductoDescuento> filterIntermediatesDes(List<ProductoDescuento> lstProdDesc){
+		List<ProductoDescuento> newList = new ArrayList<ProductoDescuento>();
+		for (ProductoDescuento productoDescuento : lstProdDesc){
+			if(productoDescuento.getInsDescuento()!=null){
+				newList.add(productoDescuento);
+			}
+		}
+		return newList;
 	}
 
 }
